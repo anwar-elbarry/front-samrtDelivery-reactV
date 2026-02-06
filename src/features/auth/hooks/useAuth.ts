@@ -34,14 +34,9 @@ export function useAuth() {
   };
 
   const loginWithProvider = (provider: string): void => {
-    startTransition(async () => {
-      try {
-        const response: AuthResponse = await authService.loginWithProvider(provider);
-        authService.saveTokens(response);
-        window.location.href = '/dashboard';
-      } catch (err) {
-        console.error('OAuth login failed:', err);
-      }
+    startTransition(() => {
+      // OAuth redirects to provider, no response handling needed here
+      authService.loginWithProvider(provider);
     });
   };
 
